@@ -1,0 +1,37 @@
+int potential = A0;
+int green = 9;
+int yellow = 10;
+int red = 11;
+void setup() {
+pinMode(green, OUTPUT);
+pinMode(yellow, OUTPUT);
+pinMode(red, OUTPUT);
+Serial.begin(9600);
+}
+void loop() {
+int potentialv = analogRead(potential);
+int gb = 0;
+int yb = 0;
+int rb = 0;
+String currentstate = "";
+if (potentialv >= 0 && potentialv <= 340) {
+gb = map(potentialv, 0, 340, 0, 255);
+currentstate = "Green LED Active";
+}
+else if (potentialv >= 341 && potentialv <= 680) {
+yb = map(potentialv, 341, 680, 0, 255);
+currentstate = "Yellow LED Active";
+}
+else if (potentialv >= 681 && potentialv <= 1023) {
+rb = map(potentialv, 681, 1023, 0, 255);
+currentstate = "Red LED Active";
+}
+analogWrite(green, gb);
+analogWrite(yellow, yb);
+analogWrite(red, rb);
+Serial.print("potentiometer value: ");
+Serial.print(potentialv);
+Serial.print(",State: ");
+Serial.println(currentstate);
+delay(1000);
+}
