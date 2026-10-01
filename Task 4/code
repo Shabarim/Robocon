@@ -1,0 +1,31 @@
+int switch1= 2;
+int switch2= 3;
+int green= 8;
+int yellow= 9;
+int red= 10;
+void setup() {
+pinMode(switch1, INPUT);
+pinMode(switch2, INPUT);
+pinMode(green, OUTPUT);
+pinMode(yellow, OUTPUT);
+pinMode(red, OUTPUT);
+}
+void loop() {
+int switch1State = digitalRead(switch1);
+int switch2State = digitalRead(switch2);
+if (switch2State == LOW) {
+digitalWrite(green, LOW);
+digitalWrite(yellow, HIGH);
+digitalWrite(red, LOW);
+}
+else if (switch1State == HIGH && switch2State == HIGH) {
+digitalWrite(green, HIGH);
+digitalWrite(yellow, LOW);
+digitalWrite(red, LOW);
+}
+else if (switch1State == LOW && switch2State == HIGH) {
+digitalWrite(green, LOW);
+digitalWrite(yellow, LOW);
+digitalWrite(red, HIGH);
+}
+}
