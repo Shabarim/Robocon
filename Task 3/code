@@ -1,0 +1,22 @@
+void setup()
+{
+pinMode(2, OUTPUT);
+pinMode(3, OUTPUT);
+pinMode(4, OUTPUT);
+pinMode(5, OUTPUT);
+Serial.begin(9600);
+
+Serial.println("Enter a number from 0 to 15:");
+}
+
+void loop()
+{
+int number = Serial.parseInt();
+
+if (number >= 0 && number <= 15) {
+if (number >= 8) {
+digitalWrite(5, HIGH);
+number -= 8;
+} else {
+digitalWrite(5, LOW);
+}
