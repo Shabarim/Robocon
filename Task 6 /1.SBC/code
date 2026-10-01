@@ -1,0 +1,42 @@
+float custommap(float value, float frommin, float frommax, float tomin, float tomax) {
+  float v = value-frommin;
+  float v1 = ( v /(frommax - frommin))*100;
+  float v2 = (v1/100)*(tomax - tomin);
+  float v3 = v2 + tomin;
+  return v3;
+}
+
+const int trigPin = 7;
+const int echoPin = 6;
+const int ledPin = 3; 
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  long duration = pulseIn(echoPin, HIGH);
+  float distance = duration * 0.034 / 2.0;
+  
+  if (distance < 20.0) {
+    digitalWrite(ledPin, LOW);
+  } 
+  else if (distance > 200.0) {
+    digitalWrite(ledPin, LOW);
+  } 
+  else {
+    float brightnessf = custommap(distance, 20.0, 200.0, 0.0, 255.0);
+    int brightness = (int)brightnessf;
+    analogWrite(ledPin, brightness);
+  }
+  
+  delay(100);
+}
