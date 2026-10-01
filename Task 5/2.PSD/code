@@ -1,0 +1,60 @@
+int potPin = A0;
+int trigPin = 7;
+int echoPin = 6;
+int green = 8;
+int yellow = 9;
+int red = 10;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(green, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  pinMode(red, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int potValue = analogRead(potPin);
+  float warningDistance = map(potValue, 0, 1023, 10, 50);
+
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH);
+  float measuredDistance = duration * 0.034 / 2;
+
+  String robotStatus = "";
+
+  if (measuredDistance > warningDistance) {
+    digitalWrite(green, HIGH);
+    digitalWrite(yellow, LOW);
+    digitalWrite(red, LOW);
+    robotStatus = "Safe distance";
+  } 
+  else if (measuredDistance > (warningDistance / 2.0) && measuredDistance <= warningDistance) {
+    digitalWrite(green, LOW);
+    digitalWrite(yellow, HIGH);
+    digitalWrite(red, LOW);
+    robotStatus = "Getting close to the obstacle";
+  } 
+  else {
+    digitalWrite(green, LOW);
+    digitalWrite(yellow, LOW);
+    digitalWrite(red, HIGH);
+    robotStatus = "Dangerously close to the obstacle";
+  }
+
+
+  Serial.print("Measured Distance: ");
+  Serial.print(measuredDistance);
+  Serial.print(" cm ,Warning Distance: ");
+  Serial.print(warningDistance);
+  Serial.print(" cm ,Status: ");
+  Serial.println(robotStatus);
+
+  delay(200); 
+}
