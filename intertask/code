@@ -1,0 +1,44 @@
+int trig=8;
+int echo=9;
+int potpin=A0;
+int inp4=3;
+int inp3=4;
+int en=6;
+
+void setup()
+{
+  pinMode(trig, OUTPUT);
+  pinMode(echo, OUTPUT);
+  pinMode(potpin, OUTPUT);
+  pinMode(inp4, OUTPUT);
+  pinMode(inp3, OUTPUT);
+  pinMode(en, OUTPUT);
+  digitalWrite(inp4,HIGH);
+  digitalWrite(inp3,LOW);
+}
+
+void loop()
+{
+  digitalWrite(trig, LOW);
+  delay(1000);
+  digitalWrite(trig, HIGH);
+  delay(1000);
+  digitalWrite(trig, LOW);
+
+  digitalWrite(echo ,HIGH);
+  float tim = pulseIn(echo);
+  float distance= tim*0.034 /2;
+  
+  int val=map(distance,0,200,0,255);
+  
+  if (distance<100 && distance>10){
+  	int val=map(dist,0,200,0,255);
+	analogWrite(en,val);
+  }
+  else{
+   int potval=analogRead(potpin);
+   int potfinalval=map(potval,0,1023,0,255);
+   digitalWrite(en,potfinalval);
+  }
+  
+}
