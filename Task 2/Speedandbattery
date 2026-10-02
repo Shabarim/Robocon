@@ -1,0 +1,92 @@
+
+#include <iostream>
+using namespace std;
+
+class Robot {
+private:
+    int speed;
+    int battery;
+
+public:
+    void setSpeed(int s) {
+        if (s >= 0 && s <= 100) {
+            speed = s;
+        } else {
+            cout << "Invalid speed!" << endl;
+            speed = 0;
+        }
+    }
+
+    void setBattery(int b) {
+        if (b >= 0 && b <= 100) {
+            battery = b;
+        } else {
+            cout << "Invalid battery!" << endl;
+            battery = 0;
+        }
+    }
+
+    void moveForward() {
+        if (battery > 0) {
+            cout << "Moving Forward" << endl;
+            battery = battery - 5;
+        } else {
+            cout << "Battery Empty!" << endl;
+        }
+    }
+
+    void moveBackward() {
+        if (battery > 0) {
+            cout << "Moving Backward" << endl;
+            battery = battery - 5;
+        } else {
+            cout << "Battery Empty!" << endl;
+        }
+    }
+
+    void turnLeft() {
+        if (battery > 0) {
+            cout << "Turning Left" << endl;
+            battery = battery - 5;
+        } else {
+            cout << "Battery Empty!" << endl;
+        }
+    }
+
+    void turnRight() {
+        if (battery > 0) {
+            cout << "Turning Right" << endl;
+            battery = battery - 5;
+        } else {
+            cout << "Battery Empty!" << endl;
+        }
+    }
+
+    void displayStatus() {
+        cout << "Robot Speed: " << speed << endl;
+        cout << "Battery: " << battery << "%" << endl;
+    }
+};
+
+int main() {
+    Robot r;
+    int s, b;
+
+    cout << "Enter Speed: ";
+    cin >> s;
+
+    cout << "Enter Battery: ";
+    cin >> b;
+
+    r.setSpeed(s);
+    r.setBattery(b);
+
+    r.moveForward();
+    r.turnLeft();
+    r.moveForward();
+    r.turnRight();
+
+    r.displayStatus();
+
+    return 0;
+}
