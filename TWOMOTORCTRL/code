@@ -1,0 +1,27 @@
+int en12=9;
+int inp1=10;
+int inp2=11;
+int en34=5;
+int inp3=4;
+int inp4=3;
+
+void setup()
+{
+  pinMode(en12, OUTPUT);
+  pinMode(inp1, OUTPUT);
+  pinMode(inp2, OUTPUT);
+  pinMode(en34, OUTPUT);
+  pinMode(inp3, OUTPUT);
+  pinMode(inp4, OUTPUT);
+}
+
+void loop()
+{
+  analogWrite(en12,5);
+  digitalWrite(inp1, HIGH);
+  digitalWrite(inp2, LOW);
+  
+  analogWrite(en34,5);
+  digitalWrite(inp3, LOW);
+  digitalWrite(inp4, HIGH);
+}
