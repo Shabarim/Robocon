@@ -1,0 +1,21 @@
+
+#include <Servo.h>
+
+int pot=A0;
+Servo s;
+Servo s2;
+
+
+void setup(){
+  pinMode(pot,INPUT);
+  s.attach(2);
+  s2.attach(5);
+}
+
+void loop(){
+  float potval=analogRead(pot);
+  int val=map(potval,0,1023,0,180);
+  s.write(val);
+  int s2val=180-val;
+  s2.write(s2val);
+}
