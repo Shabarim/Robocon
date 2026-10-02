@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+
+void readSensors(int sensor[]) {
+    cout << "Enter 8 sensor values (0 or 1): ";
+
+    for (int i = 0; i < 8; i++) {
+        cin >> sensor[i];
+    }
+}
+
+int calculatePosition(int sensor[]) {
+    int sum = 0;
+    int count = 0;
+
+    for (int i = 0; i < 8; i++) {
+        if (sensor[i] == 1) {
+            sum = sum + i;
+            count++;
+        }
+    }
+
+    if (count == 0) {
+        return -1; 
+    }
+
+    return sum / count;
+}
+
+void decideMovement(int position) {
+    if (position == -1) {
+        cout << "Line Position: Lost" << endl;
+        cout << "Action: Line Lost" << endl;
+    }
+    else if (position < 3) {
+        cout << "Line Position: Left" << endl;
+        cout << "Action: Turn Left" << endl;
+    }
+    else if (position > 4) {
+        cout << "Line Position: Right" << endl;
+        cout << "Action: Turn Right" << endl;
+    }
+    else {
+        cout << "Line Position: Center" << endl;
+        cout << "Action: Move Forward" << endl;
+    }
+}
+
+int main() {
+    int sensor[8];
+
+    readSensors(sensor);
+
+    int position = calculatePosition(sensor);
+
+    decideMovement(position);
+
+    return 0;
+}
