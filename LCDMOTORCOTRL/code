@@ -1,0 +1,36 @@
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h> 
+
+int pot = A0;   
+int ena = 5;      
+int in3 = 4;       
+int in4 = 3;       
+
+LiquidCrystal_I2C lcd(0x20, 16, 2); 
+
+void setup() {
+  pinMode(ena, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(pot, INPUT);
+}
+
+void loop() {
+  int potval= analogRead(pot);
+  int motor = map(potval, 0, 1023, 0, 255);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+  analogWrite(ena, motor);
+  
+  lcd.init();          
+  lcd.backlight(); 
+  lcd.setCursor(0, 0); 
+  lcd.print("potval=");
+  lcd.setCursor(8, 0); 
+  lcd.print(potval); 
+  lcd.setCursor(0, 1); 
+  lcd.print("pwm=");
+  lcd.setCursor(5, 1); 
+  lcd.print(motor);
+
+}
